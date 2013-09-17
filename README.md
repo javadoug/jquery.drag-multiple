@@ -5,8 +5,8 @@ A jQueryUI plugin enabling the selection, drag and drop of multiple ui-draggable
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.github.com/javadoug/jquery.drag-multiple/master/dist/drag-multiple.min.js
-[max]: https://raw.github.com/javadoug/jquery.drag-multiple/master/dist/drag-multiple.js
+[min]: https://raw.github.com/javadoug/jquery.drag-multiple/master/dist/jquery-ui.drag-multiple.min.js
+[max]: https://raw.github.com/javadoug/jquery.drag-multiple/master/dist/jquery-ui.drag-multiple.js
 
 In your web page:
 

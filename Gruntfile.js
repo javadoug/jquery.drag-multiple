@@ -22,7 +22,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: ['src/<%= pkg.name %>.js'],
-        dest: 'dist/jqueryui.<%= pkg.name %>.js'
+        dest: 'dist/jquery-ui.<%= pkg.name %>.js'
       },
     },
     uglify: {
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: '<%= concat.dist.dest %>',
-        dest: 'dist/jqueryui.<%= pkg.name %>.min.js'
+        dest: 'dist/jquery-ui.<%= pkg.name %>.min.js'
       },
     },
     jshint: {
