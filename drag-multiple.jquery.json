@@ -1,0 +1,33 @@
+{
+  "name": "drag-multiple",
+  "title": "Drag Multiple Plugin",
+  "description": "A jQuery UI plugin enabling the selection, drag and drop of multiple ui-draggable elements.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/javadoug/jquery.drag-multiple",
+  "author": {
+    "name": "Doug Ross",
+    "email": "doug@onvelocity.com",
+    "url": "onvelocity.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/javadoug/jquery.drag-multiple.git"
+  },
+  "bugs": "https://github.com/javadoug/jquery.drag-multiple/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/javadoug/jquery.drag-multiple/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": [
+    "draggable",
+    "multiple",
+    "ui-draggable",
+    "dragging",
+    "jquery-ui"
+  ]
+}
