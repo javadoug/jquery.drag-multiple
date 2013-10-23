@@ -1,7 +1,7 @@
 describe("jQuery UI Draggable Plugin Multiple", function () {
 
 	var left, draggableElements, selectedElements;
-	
+
 	function makeDraggable(element, multipleOptions) {
 		multipleOptions = multipleOptions || {};
 		element.appendTo('body').draggable({
@@ -61,7 +61,7 @@ describe("jQuery UI Draggable Plugin Multiple", function () {
 		describe("when drag target is not a selected element", function () {
 			var element;
 			beforeEach(function () {
-				element = selectedElements.first().removeClass('ui-selected');				
+				element = selectedElements.first().removeClass('ui-selected');
 			});
 			it("remove the 'ui-selected' class from the 'ui-draggable' elements", function () {
 				// drag the first element 40 px
@@ -73,7 +73,7 @@ describe("jQuery UI Draggable Plugin Multiple", function () {
 				var expectedPositions;
 				// setup
 				expectedPositions = draggableElements.map(function () {
-					var expected = {}, 
+					var expected = {},
 						position = $(this).position();
 					if (this === element[0]) {
 						// we will move this one...
@@ -101,7 +101,7 @@ describe("jQuery UI Draggable Plugin Multiple", function () {
 		});
 		describe("items<function()>", function () {
 			beforeEach(function () {
-				callbackSpy.andReturn(selectedElements);				
+				callbackSpy.andReturn(selectedElements);
 			});
 			it("is called to get the selected items", function () {
 				var element = selectedElements.first();
@@ -140,7 +140,7 @@ describe("jQuery UI Draggable Plugin Multiple", function () {
 				callbackSpy.andReturn(false);// only drag the target
 				element.draggable('option', 'multiple', {beforeStart: callbackSpy});
 				expectedPositions = draggableElements.map(function () {
-					var expected = {}, 
+					var expected = {},
 						position = $(this).position();
 					if (this === element[0]) {
 						// we will move this one...
@@ -182,77 +182,80 @@ describe("jQuery UI Draggable Plugin Multiple", function () {
 			});
 		});
 	});
-	describe("draggable.options.revert support", function () {
-		describe("when revert option is set to 'invalid' (requires droppable)", function () {
-			it("the value is ignored (feature not implemented)", function () {
-				draggableElements.draggable('option', 'revert', 'invalid');
-				basicDragTest();
-			});
-		});
-		describe("when revert option is set to 'valid' (requires droppable)", function () {
-			it("the value is ignored (feature not implemented)", function () {
-				draggableElements.draggable('option', 'revert', 'valid');
-				basicDragTest();				
-			});
-		});
-		describe("when revert option is set to function returning true", function () {
-			it("the value is ignored (feature not implemented)", function () {
-				var revertSpy = jasmine.createSpy('revertSpy').andReturn(true);
-				draggableElements.draggable('option', 'revert', revertSpy);
-				basicDragTest();				
-			});
-		});
-		describe("when revert option is set to function returning false", function () {
-			it("the value is ignored (feature not implemented)", function () {
-				var revertSpy = jasmine.createSpy('revertSpy').andReturn(false);
-				draggableElements.draggable('option', 'revert', revertSpy);
-				basicDragTest();				
-			});			
-		});
-		describe("when revert option is set to true", function () {
-			it("revert the selected elements to original position", function () {
-				draggableElements.draggable('option', 'revert', true);
-				var expectedPositions = selectedElements.map(function () {
-					var expected = {}, position = $(this).position();
-					expected.top = position.top;
-					expected.left = position.left;
-					return expected;
+	describe("jQueryUI::Draggable Options Support", function () {
+		describe("draggable.options.revert", function () {
+			describe("when revert option is set to true", function () {
+				it("revert the selected elements to original position", function () {
+					draggableElements.draggable('option', 'revert', true);
+					var expectedPositions = selectedElements.map(function () {
+						var expected = {}, position = $(this).position();
+						expected.top = position.top;
+						expected.left = position.left;
+						return expected;
+					});
+					basicDragTest(expectedPositions);
 				});
-				basicDragTest(expectedPositions);				
+			});
+			describe("when revert option is set to 'invalid'", function () {
+				it("the value is ignored (feature not implemented)", function () {
+					draggableElements.draggable('option', 'revert', 'invalid');
+					basicDragTest();
+				});
+			});
+			describe("when revert option is set to 'valid'", function () {
+				it("the value is ignored (feature not implemented)", function () {
+					draggableElements.draggable('option', 'revert', 'valid');
+					basicDragTest();
+				});
+			});
+			describe("when revert option is set to function returning true", function () {
+				it("the value is ignored (feature not implemented)", function () {
+					var revertSpy = jasmine.createSpy('revertSpy').andReturn(true);
+					draggableElements.draggable('option', 'revert', revertSpy);
+					basicDragTest();
+				});
+			});
+			describe("when revert option is set to function returning false", function () {
+				it("the value is ignored (feature not implemented)", function () {
+					var revertSpy = jasmine.createSpy('revertSpy').andReturn(false);
+					draggableElements.draggable('option', 'revert', revertSpy);
+					basicDragTest();
+				});
+			});
+		});
+		describe("draggable.options.helper", function () {
+			describe("when helper option is set to 'original'", function () {
+				it("the original element is moved", function () {
+					draggableElements.draggable('option', 'helper', 'original');
+					basicDragTest();
+				});
+			});
+			describe("when helper option is set to 'clone'", function () {
+				it("the value is ignored (feature not implemented)", function () {
+					draggableElements.draggable('option', 'helper', 'clone');
+					basicDragTest();
+				});
+			});
+			describe("when helper option is set to a <function()>", function () {
+				it("the value is ignored (feature not implemented)", function () {
+					draggableElements.draggable('option', 'helper', function () {
+						return $('<div>').addClass('test-helper').css({
+							position: 'absolute',
+							top: '15px',
+							left: '15px',
+							width: '15px',
+							height: '15px',
+							background: 'white',
+							opacity: '0.5'
+						}).appendTo('body');
+					});
+					var expected = $('.test-helper').position();
+					basicDragTest();
+					var result = $('.test-helper').position();
+					expect(result).toEqualHash(expected);
+				});
 			});
 		});
 	});
-	describe("draggable.options.helper support", function () {
-		describe("when helper option is set to 'clone'", function () {
-			it("the value is ignored (feature not implemented)", function () {
-				draggableElements.draggable('option', 'helper', 'clone');
-				basicDragTest();
-			});
-		});
-		describe("when helper option is set to a <function()>", function () {
-			it("the value is ignored (feature not implemented)", function () {
-				draggableElements.draggable('option', 'helper', function () {
-					return $('<div>').addClass('test-helper').css({
-						position: 'absolute',
-						top: '15px',
-						left: '15px',
-						width: '15px',
-						height: '15px',
-						background: 'white',
-						opacity: '0.5'
-					}).appendTo('body');
-				});
-				var expected = $('.test-helper').position();
-				basicDragTest();
-				var result = $('.test-helper').position();
-				expect(result).toEqualHash(expected);
-			});
-		});
-		describe("when helper option is set to 'original'", function () {
-			it("the original element is moved", function () {
-				draggableElements.draggable('option', 'helper', 'original');
-				basicDragTest();
-			});
-		});
-	});
+
 });
