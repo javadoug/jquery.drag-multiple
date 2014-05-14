@@ -1,6 +1,6 @@
-/*! Drag Multiple Plugin - v0.1.0 - 2013-09-17
+/*! Drag Multiple Plugin - v0.1.1 - 2014-05-14
 * https://github.com/javadoug/jquery.drag-multiple
-* Copyright (c) 2013 Doug Ross; Licensed MIT */
+* Copyright (c) 2014 Doug Ross; Licensed MIT */
 /*globals jQuery */
 (function ($) {
 
@@ -68,7 +68,7 @@
             element = this;
 
             // the draggable instance
-            instance = element.data('draggable');
+            instance = element.data('draggable') || element.data('ui-draggable');
 
             // initialize state
             instance.multiple = {};
@@ -104,7 +104,7 @@
             var element, instance, options;
 
             element = this;
-            instance = element.data('draggable');
+            instance = element.data('draggable') || element.data('ui-draggable');
             options = instance.multiple.options;
 
             if (options.dragCanceled) {
@@ -136,7 +136,7 @@
             var element, instance, options;
 
             element = this;
-            instance = element.data('draggable');
+            instance = element.data('draggable') || element.data('ui-draggable');
             options = instance.multiple.options;
 
             if (options.dragCanceled) {
