@@ -66,7 +66,7 @@
             element = this;
 
             // the draggable instance
-            instance = element.data('draggable');
+            instance = element.data('draggable') || element.data('ui-draggable');
 
             // initialize state
             instance.multiple = {};
@@ -102,7 +102,7 @@
             var element, instance, options;
 
             element = this;
-            instance = element.data('draggable');
+            instance = element.data('draggable') || element.data('ui-draggable');
             options = instance.multiple.options;
 
             if (options.dragCanceled) {
@@ -134,7 +134,7 @@
             var element, instance, options;
 
             element = this;
-            instance = element.data('draggable');
+            instance = element.data('draggable') || element.data('ui-draggable');
             options = instance.multiple.options;
 
             if (options.dragCanceled) {
