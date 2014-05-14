@@ -66,8 +66,8 @@ Called before draggable.stop event. The default is $.noop.
 _(Coming soon)_
 
 ## Release History
-# _0.1.0_ inital release
-# _0.1.1_ fix
+### _0.1.0_ inital release
+### _0.1.1_ fix
 - https://github.com/javadoug/jquery.drag-multiple/issues/3
 - https://github.com/javadoug/jquery.drag-multiple/issues/2
 
