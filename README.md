@@ -62,6 +62,9 @@ Called before draggable.stop event. The default is $.noop.
     };
 
 
+#### multiple.stack
+Just like jQueryUI Draggable's `stack` option, but for multiple elements; all selected elements move to the top of the stack when one of them is dragged. The default is false.
+
 ## Examples
 _(Coming soon)_
 
