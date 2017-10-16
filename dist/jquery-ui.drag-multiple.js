@@ -1,4 +1,4 @@
-/*! Drag Multiple Plugin - v0.1.1 - 2017-10-16
+/*! Drag Multiple Plugin - v0.1.2 - 2017-10-16
 * https://github.com/javadoug/jquery.drag-multiple
 * Copyright (c) 2017 Doug Ross; Licensed MIT */
 /*globals jQuery */
@@ -26,7 +26,10 @@
         beforeDrag: $.noop,
 
         // notify consumer of drag multiple stop
-        beforeStop: $.noop
+        beforeStop: $.noop,
+
+        // multiple.stack
+        stack: false
 
     };
 
@@ -96,6 +99,27 @@
             // disable draggable revert, we will handle the revert
             instance.originalRevert = options.revert = instance.options.revert;
             instance.options.revert = preventDraggableRevert;
+
+            // stack groups of elements
+            // (adapted from jQuery UI 1.12.1-pre draggable)
+            if (false !== options.stack) {
+                var min, group;
+
+                group = $.makeArray($(options.stack)).sort(function(a, b) {
+                    return (parseInt($(a).css("zIndex"), 10) || 0) -
+                        (parseInt($(b).css("zIndex"), 10) || 0);
+                });
+
+                if (!group.length) { return; }
+
+                min = parseInt($(group[0]).css("zIndex"), 10) || 0;
+                $(group).each(function(i) {
+                    $( this ).css("zIndex", min + i);
+                });
+                selected.each(function () {
+                    $(this).css("zIndex", min + group.length);
+                });
+            }
         },
 
         // move the selected draggables

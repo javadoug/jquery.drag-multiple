@@ -256,6 +256,78 @@ describe("jQuery UI Draggable Plugin Multiple", function () {
 				});
 			});
 		});
+		describe("draggable.options.multiple.stack", function () {
+			beforeEach(function () {
+				// create elements that will shift to bottom of stack after dragging some other elements
+				left = 10;
+				var stationaryElements = [$('<div>'), $('<div>'), $('<div>')];
+				$.each(stationaryElements, function(index, element) {
+					element.appendTo('body').css({
+						top: '30px',
+						left: (left += 20) + 'px',
+						width: '20px',
+						height: '20px',
+						position: 'absolute',
+						background: 'red',
+						border: '2px solid blue',
+						zIndex: 100
+					});
+					$(element).addClass('stack-test stationary-element');
+				});
+				draggableElements.addClass('stack-test');
+				draggableElements.css('zIndex', -1);
+			});
+
+			afterEach(function () {
+				$('.stationary-element').remove();
+			});
+
+			describe("when multiple.stack option is set", function() {
+				it("selected elements move to the top when dragged", function() {
+					draggableElements.draggable('option', 'multiple', {'stack': '.stack-test'});
+
+					var element = draggableElements.first();
+					element.simulate('drag', {dx: 20, dy: 20});
+					var zIndices = $('.stationary-element').toArray().map(function(element) {
+						return parseInt($(element).css('zIndex'), 10);
+					});
+
+					// all selected elements are above the stationary elements
+					draggableElements.each(function() {
+						expect(parseInt($(this).css('zIndex'), 10)).toBeGreaterThan(Math.max.apply(null, zIndices));
+					});
+				});
+			});
+			describe("when multiple.stack option is unset", function() {
+				it("z-index of selected elements doesn't change when dragged", function() {
+					var element = draggableElements.first();
+					element.simulate('drag', {dx: 20, dy: 20});
+
+					draggableElements.each(function() {
+						expect(parseInt($(this).css('zIndex'), 10)).toEqual(-1);
+					});
+				});
+			});
+			describe("when stack option is set", function() {
+				it("only target element moves to the top when selected elements dragged (targeting single elements still works)", function() {
+					draggableElements.draggable('option', 'stack', '.stack-test');
+
+					var element = draggableElements.first();
+					element.simulate('drag', {dx: 20, dy: 20});
+					var zIndices = $('.stationary-element').toArray().map(function(element) {
+						return parseInt($(element).css('zIndex'), 10);
+					});
+
+					// only the target element is above the stationary elements
+					expect(parseInt($(element).css('zIndex'), 10)).toBeGreaterThan(Math.max.apply(null, zIndices));
+					// the rest remain below
+					draggableElements.filter(':gt(0)').each(function() {
+						expect(parseInt($(this).css('zIndex'), 10)).toBeLessThan(Math.min.apply(null, zIndices));
+					});
+
+				});
+			});
+		});
 	});
 
 });
