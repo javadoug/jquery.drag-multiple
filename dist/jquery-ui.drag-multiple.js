@@ -1,6 +1,6 @@
-/*! Drag Multiple Plugin - v0.1.1 - 2014-05-14
+/*! Drag Multiple Plugin - v0.1.1 - 2017-10-16
 * https://github.com/javadoug/jquery.drag-multiple
-* Copyright (c) 2014 Doug Ross; Licensed MIT */
+* Copyright (c) 2017 Doug Ross; Licensed MIT */
 /*globals jQuery */
 (function ($) {
 
